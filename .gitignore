@@ -1,0 +1,8 @@
+__pycache__/
+dbs/
+eggs/
+logs/
+build/
+project.egg-info/
+*.csv
+*.env
