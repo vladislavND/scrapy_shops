@@ -1,0 +1,48 @@
+version: '3'
+
+
+volumes:
+  bot_db:
+
+
+services:
+
+  database:
+    image: postgres
+    container_name: "bot_db"
+    volumes:
+      - bot_db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:5433
+
+  api:
+    build: .
+    volumes:
+      - .:/fast
+    container_name: "fast"
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+    command: >
+      sh -c "poetry run uvicorn main:app --host 0.0.0.0
+      "
+
+  bot:
+    build: .
+    volumes:
+      - .:/fast
+    env_file:
+      - .env
+    depends_on:
+      - api
+    command: >
+      sh -c "poetry run python bot.py
+      "
