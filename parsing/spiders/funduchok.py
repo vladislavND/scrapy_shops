@@ -52,10 +52,10 @@ class FunduchokSpider(SitemapSpider):
 
     def close(self, reason):
         from core.crud.porduct import CRUDProduct
-        from core.db.database import session
+        from core.db.database import Session, engine
 
         crud = CRUDProduct()
-        crud.add_product_by_file(session=session, file_name=self.file_name, shop_id=self.shop_id)
+        crud.add_product_by_file(session=Session(engine), file_name=self.file_name, shop_id=self.shop_id)
         #TODO dobavit otpravku faila po zaversheniu parsinga
 
 

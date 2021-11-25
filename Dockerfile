@@ -5,6 +5,6 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /fast
 WORKDIR /fast
 COPY . /fast
-COPY Pipfile .
+COPY pyproject.toml .
 RUN pip install poetry
 RUN poetry install
