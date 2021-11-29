@@ -39,7 +39,7 @@ class UtkonosSpider(scrapy.Spider):
                                 'name': data_products['Name'],
                                 'unit': data_products.get('GoodsUnitList')[0].get('UnitName'),
                                 'weight': data_products.get('BruttoWeight'),
-                                'category': value + ' | ' + data_products.get('DefaultCategoryName'),
+                                'category': value + ' | ' + data_products.get('DefaultCategoryName', ''),
                                 'article': data_products['Id'],
                                 'image_url': data_products.get('ImageBigUrl'),
                                 'images': data_products.get('images'),
