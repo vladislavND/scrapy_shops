@@ -37,16 +37,16 @@ class UtkonosSpider(scrapy.Spider):
                         for data_products in response_data:
                             product = {
                                 'name': data_products['Name'],
-                                'unit': data_products['GoodsUnitList'][0]['UnitName'],
-                                'weight': data_products['BruttoWeight'],
-                                'category': value + ' | ' + data_products['DefaultCategoryName'],
+                                'unit': data_products.get('GoodsUnitList')[0].get('UnitName'),
+                                'weight': data_products.get('BruttoWeight'),
+                                'category': value + ' | ' + data_products.get('DefaultCategoryName'),
                                 'article': data_products['Id'],
-                                'image_url': data_products['ImageBigUrl'],
+                                'image_url': data_products.get('ImageBigUrl'),
                                 'images': data_products.get('images'),
-                                'price': data_products['Price'],
+                                'price': data_products.get('Price'),
                                 'sale_price': data_products.get('Price') if data_products.get('OldPrice') else None,
                                 'url': f'https://www.utkonos.ru/item/{data_products["OriginalId"]}/{data_products["Slug"]}',
-                                'brand': data_products['Brand'],
+                                'brand': data_products.get('Brand'),
                             }
                             product.update(data_products)
                             yield product

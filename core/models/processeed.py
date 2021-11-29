@@ -28,6 +28,7 @@ class ProcessedAnalise(SQLModel, table=True):
     sale_price: Optional[Decimal] = 0
     product_price_kg: Optional[Decimal] = 0
     different_price: Optional[Decimal] = 0
+    different_price_kg: Optional[Decimal] = 0
     weight: Optional[str] = None
     unit: Optional[str] = None
     product_article: int
@@ -48,9 +49,8 @@ class ProcessedAnalise(SQLModel, table=True):
 
     @root_validator
     def calc_difference(cls, values):
-        if values['product_price_kg']:
-            values['different_price'] = values['product_price_kg'] - values['price_rf_kg']
-        values['different_price'] = values.get('product_price') - values.get('price_rf')
+        values['different_price_kg'] = values['product_price_kg'] - values['price_rf_kg']
+        values['different_price'] = values['product_price'] - values['price_rf']
 
         return values
 
