@@ -48,7 +48,6 @@ class UtkonosSpider(scrapy.Spider):
                                 'url': f'https://www.utkonos.ru/item/{data_products["OriginalId"]}/{data_products["Slug"]}',
                                 'brand': data_products.get('Brand'),
                             }
-                            product.update(data_products)
                             yield product
                     else:
                         offset = 0
